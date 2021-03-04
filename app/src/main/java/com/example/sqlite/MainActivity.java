@@ -44,40 +44,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btn_add = (Button) findViewById(R.id.btn_add);
-
-        new GuideView.Builder(this)
-                .setTitle("Add button")
-                .setContentText("When you click on this button, you can add new user to the database")
-                .setTargetView(btn_add)
-                .setGravity(Gravity.center)
-                .setDismissType(DismissType.outside)
-                .setGuideListener(new GuideListener() {
-                    @Override
-                    public void onDismiss(View view) {
-                        //TODO ...
-                    }
-                })
-                .build()
-                .show();
-
         btn_viewAll = (Button) findViewById(R.id.btn_viewAll);
         et_name = (EditText) findViewById(R.id.name_id);
-
-        new GuideView.Builder(this)
-                .setTitle("Input type")
-                .setContentText("When you click on this input type, you can write user name")
-                .setTargetView(et_name)
-                .setGravity(Gravity.center)
-                .setDismissType(DismissType.outside)
-                .setGuideListener(new GuideListener() {
-                    @Override
-                    public void onDismiss(View view) {
-                        //TODO ...
-                    }
-                })
-                .build()
-                .show();
-
         et_age = (EditText) findViewById(R.id.age_id);
         sw_activeUser = (Switch) findViewById(R.id.sw_active);
         lv_userList = (ListView) findViewById(R.id.userList_id);
@@ -86,11 +54,25 @@ public class MainActivity extends AppCompatActivity {
 
         ShowUserOnListView(dataBaseHelper);
 
-        btn_add.setOnClickListener(new View.OnClickListener() {
 
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new GuideView.Builder(MainActivity.this)
+                        .setTitle("Add button")
+                        .setContentText("Using this button the new user will be automatically added to the database")
+                        .setTargetView(btn_add)
+                        .setGravity(Gravity.center)
+                        .setDismissType(DismissType.outside)
+                        .setGuideListener(new GuideListener() {
+                            @Override
+                            public void onDismiss(View view) {
+                                //TODO ...
+                            }
+                        })
+                        .build()
+                        .show();
                 UserModel userModel;
 
                 try {
@@ -110,7 +92,32 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"Success=" + success, Toast.LENGTH_SHORT).show();
 
                 ShowUserOnListView(dataBaseHelper);
+
             }
+
+
+        });
+
+        et_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new GuideView.Builder(MainActivity.this)
+                        .setTitle("Input type")
+                        .setContentText("Enter the username")
+                        .setTargetView(et_name)
+                        .setGravity(Gravity.center)
+                        .setDismissType(DismissType.outside)
+                        .setGuideListener(new GuideListener() {
+                            @Override
+                            public void onDismiss(View view) {
+                                //TODO ...
+                            }
+                        })
+                        .build()
+                        .show();
+            }
+
+
         });
 
         btn_viewAll.setOnClickListener(new View.OnClickListener() {
@@ -133,11 +140,10 @@ public class MainActivity extends AppCompatActivity {
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-
                 UserModel clickedUser = (UserModel) parent.getItemAtPosition(position);
                dataBaseHelper.deleteOne(clickedUser);
                 ShowUserOnListView(dataBaseHelper);
-                Toast.makeText(MainActivity.this, "Deleted" + clickedUser.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Deleted" + clickedUser.toString(), Toast.LENGTH_LONG).show();
 
             }
         });
@@ -177,4 +183,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
+
 }
