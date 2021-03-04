@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         new GuideView.Builder(this)
                 .setTitle("Add button")
-                .setContentText("When you click on this button, you can add new user into database")
+                .setContentText("When you click on this button, you can add new user to the database")
                 .setTargetView(btn_add)
                 .setGravity(Gravity.center)
                 .setDismissType(DismissType.outside)
