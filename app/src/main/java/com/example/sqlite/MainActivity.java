@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,13 +24,17 @@ import android.widget.Toast;
 import java.util.HashSet;
 import java.util.List;
 
+import smartdevelop.ir.eram.showcaseviewlib.GuideView;
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity;
+import smartdevelop.ir.eram.showcaseviewlib.listener.GuideListener;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btn_add, btn_viewAll;
     EditText et_name, et_age;
     Switch sw_activeUser;
     ListView lv_userList;
-
     ArrayAdapter userArrayAdapter;
     DataBaseHelper dataBaseHelper;
 
@@ -38,8 +44,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btn_add = (Button) findViewById(R.id.btn_add);
+
+        new GuideView.Builder(this)
+                .setTitle("Add button")
+                .setContentText("When you click on this button, you can add new user into database")
+                .setTargetView(btn_add)
+                .setGravity(Gravity.center)
+                .setDismissType(DismissType.outside)
+                .setGuideListener(new GuideListener() {
+                    @Override
+                    public void onDismiss(View view) {
+                        //TODO ...
+                    }
+                })
+                .build()
+                .show();
+
         btn_viewAll = (Button) findViewById(R.id.btn_viewAll);
         et_name = (EditText) findViewById(R.id.name_id);
+
+        new GuideView.Builder(this)
+                .setTitle("Input type")
+                .setContentText("When you click on this input type, you can write user name")
+                .setTargetView(et_name)
+                .setGravity(Gravity.center)
+                .setDismissType(DismissType.outside)
+                .setGuideListener(new GuideListener() {
+                    @Override
+                    public void onDismiss(View view) {
+                        //TODO ...
+                    }
+                })
+                .build()
+                .show();
+
         et_age = (EditText) findViewById(R.id.age_id);
         sw_activeUser = (Switch) findViewById(R.id.sw_active);
         lv_userList = (ListView) findViewById(R.id.userList_id);
